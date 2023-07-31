@@ -15,12 +15,12 @@
           <form>
             
             <div class="field">
-              <label class="label">First Number</label>
+              <label class="label">First Number</label> &nbsp;
               <input name="num1" v-model="num1" v-validate="'required|digits'" class="input" type="text">
             </div>
 
             <div class="field" style="margin-top:13px;">
-              <label class="label">Second Number</label>
+              <label class="label">Second Number</label> &nbsp;
               <input name="num2" v-model="num2" class="input" v-validate="'required|digits'" type="text">
             </div>
             
@@ -28,10 +28,10 @@
           </b-col>
 
           <b-col cols="4" class="text-left">
-            <div><label class="label">Addition: {{ add }}</label></div>
-            <div><label class="label">Multiplication: {{ mul }}</label></div>
-            <div><label class="label">Subtraction: {{ sub }}</label></div>
-            <div><label class="label">Division: {{ div }}</label></div>
+            <div><label class="label">Addition: &nbsp; {{ add }}</label></div>
+            <div><label class="label">Multiplication: &nbsp; {{ mul }}</label></div>
+            <div><label class="label">Subtraction: &nbsp; {{ sub }}</label></div>
+            <div><label class="label">Division: &nbsp; {{ div }}</label></div>
           </b-col>
 
         </b-row>
@@ -77,18 +77,19 @@ export default {
       var data = {"num1": parseFloat(this.num1), "num2": parseFloat(this.num2)}
 
       /*eslint-disable*/
-      console.log(data) 
+      console.log("param", data) 
       /*eslint-enable*/
 
-      axios({ method: "POST", url: "http://127.0.0.1:8090/calc", data: data, headers: {"content-type": "text/plain" } }).then(result => { 
+      axios({ method: "POST", url: "http://127.0.0.1:8090/calc", data: data, headers: {"content-type": "application/json" } }).then(result => { 
           // this.response = result.data;
-          this.add = result.data['add']
-          this.mul = result.data['mul']
-          this.sub = result.data['sub']
-          this.div = result.data['div']
+          let resData = result.data.data.data;
+          this.add = resData.add;
+          this.mul = resData.mul;
+          this.sub = resData.sub;
+          this.div = resData.div;
 
           /*eslint-disable*/
-          console.log(result.data) 
+          console.log("result", result.data) 
           /*eslint-enable*/
 
         }).catch( error => {

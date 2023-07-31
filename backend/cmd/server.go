@@ -51,7 +51,7 @@ func calc(w http.ResponseWriter, request *http.Request) {
 	}
 }
 
-func main() {
+func mainHold() {
 	port := 8090
 	http.HandleFunc("/", calc)
 
